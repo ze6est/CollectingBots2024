@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5888098191043721269}
   - component: {fileID: 8631847624768433219}
   - component: {fileID: 3901408309773439208}
+  - component: {fileID: 6722745911952833377}
   m_Layer: 7
   m_Name: Core
   m_TagString: Untagged
@@ -120,9 +121,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34670ddba7d85e47a22beb8d3eb13af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 3
-  _layerMask:
+  _collisionLayers:
     serializedVersion: 2
-    m_Bits: 384
-  _countStartUnits: 10
-  _spawnOffset: 0.1
+    m_Bits: 896
+  _spawnRadius: 1.5
+  _spawnWidthOffset: 0.25
+  _spawnHightOffset: 0.05
+  _capacity: 10
+  _isAutoExpand: 0
+  _statrUnitsCount: 3
+--- !u!114 &6722745911952833377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4019769851818502837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32acab24f8686143bc4b14af3e51b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  _resourcesFoundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  _scanRadius: 10
+  _scanInterval: 1
+  _resourcesFoundPerScan: 3

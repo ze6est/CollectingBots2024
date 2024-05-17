@@ -11,7 +11,6 @@ namespace CollectingBots2024.CodeBase
         [SerializeField] private float _spawnRadius;
         [SerializeField] private float _spawnWidthOffset;
         [SerializeField] private float _spawnHightOffset;
-        [SerializeField] private float _spawnInterval;
         
         [Header("Resources pool Settings:")] 
         [SerializeField] private int _capacity = 10;
@@ -34,22 +33,6 @@ namespace CollectingBots2024.CodeBase
 
             _objectWidth = _calculator.GetWidth(_prefab.gameObject);
             _objectPivotPositionY = _calculator.GetSpawnHight(_prefab.gameObject);
-        }
-
-        private void OnEnable()
-        {
-            StartCoroutine(SpawnObjects());
-        }
-
-        protected virtual IEnumerator SpawnObjects()
-        {
-            WaitForSeconds wait = new WaitForSeconds(_spawnInterval);
-            
-            while (true)
-            {
-                yield return SpawnObject();
-                yield return wait;
-            }
         }
         
         protected IEnumerator SpawnObject()
