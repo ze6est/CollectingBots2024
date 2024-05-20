@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4602890404410157651}
   - component: {fileID: 5718903261561360144}
   - component: {fileID: 651155654023422725}
+  - component: {fileID: -6885956104780273253}
   m_Layer: 9
   m_Name: Resource
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6067286424815314097
 MeshFilter:
@@ -118,3 +119,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ec9a8a86638f54b8851bfd565f1338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &-6885956104780273253
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3745144118918207620}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
