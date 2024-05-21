@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CollectingBots2024.CodeBase.Base
@@ -13,8 +13,9 @@ namespace CollectingBots2024.CodeBase.Base
         [SerializeField] private float _scanInterval;
         [SerializeField] private int _resourcesFoundPerScan;
         
-        [SerializeField] private List<Collider> _resources = new List<Collider>();
         private Coroutine _scanJob;
+
+        public event Action<Collider> ResourceFound; 
 
         private void OnEnable() => 
             _scanJob = StartCoroutine(Scan());
@@ -24,7 +25,7 @@ namespace CollectingBots2024.CodeBase.Base
 
         private IEnumerator Scan()
         {
-            var wait = new WaitForSeconds(_scanInterval);
+            WaitForSeconds wait = new WaitForSeconds(_scanInterval);
             
             while (true)
             {
@@ -32,10 +33,13 @@ namespace CollectingBots2024.CodeBase.Base
 
                 int count = Physics.OverlapSphereNonAlloc(transform.position, _scanRadius, resources, _collisionLayers);
 
-                for (int i = 0; i < count; i++)
+                if (count > 0)
                 {
-                    _resources.Add(resources[i]);
-                    resources[i].gameObject.layer = _resourcesFoundNumber;
+                    for (int i = 0; i < count; i++)
+                    {
+                        ResourceFound?.Invoke(resources[i]);
+                        resources[i].gameObject.layer = _resourcesFoundNumber;
+                    }
                 }
                 
                 yield return wait;

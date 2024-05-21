@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 72724334}
   - component: {fileID: 72724333}
-  - component: {fileID: 72724332}
   m_Layer: 0
   m_Name: NavMeshSurface
   m_TagString: Untagged
@@ -141,25 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &72724332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72724331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 0
-  m_Area: 0
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 0
-  m_ApplyToChildren: 0
-  m_AffectedAgents: ffffffff
 --- !u!114 &72724333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,25 +1111,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3901408309773439208, guid: aafce792541834f4bbb31126823e4f84, type: 3}
-      propertyPath: _collisionLayers.m_Bits
-      value: 3968
-      objectReference: {fileID: 0}
     - target: {fileID: 4019769851818502837, guid: aafce792541834f4bbb31126823e4f84, type: 3}
       propertyPath: m_Name
       value: Core
-      objectReference: {fileID: 0}
-    - target: {fileID: 6722745911952833377, guid: aafce792541834f4bbb31126823e4f84, type: 3}
-      propertyPath: _resourcesFoundName
-      value: ResourceFound
-      objectReference: {fileID: 0}
-    - target: {fileID: 6722745911952833377, guid: aafce792541834f4bbb31126823e4f84, type: 3}
-      propertyPath: _resourcesFoundNumber
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6722745911952833377, guid: aafce792541834f4bbb31126823e4f84, type: 3}
-      propertyPath: _resourcesFoundLayer.m_Bits
-      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 7789696528585600019, guid: aafce792541834f4bbb31126823e4f84, type: 3}
       propertyPath: m_RootOrder

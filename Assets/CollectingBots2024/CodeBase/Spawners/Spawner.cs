@@ -23,6 +23,8 @@ namespace CollectingBots2024.CodeBase
         
         private Calculator _calculator;
 
+        public event Action<T> Spawned;
+
         protected void Construct(string prefabPath)
         {
             _prefab = Resources.Load<T>(prefabPath);
@@ -60,6 +62,7 @@ namespace CollectingBots2024.CodeBase
                     {
                         T @object = _objectsPool.GetFreeObject();
                         @object.transform.position = spawnPosition;
+                        Spawned?.Invoke(@object);
                     }
                     else
                     {

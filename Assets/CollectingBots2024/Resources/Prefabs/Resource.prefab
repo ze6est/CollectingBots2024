@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 4602890404410157651}
   - component: {fileID: 5718903261561360144}
   - component: {fileID: 651155654023422725}
-  - component: {fileID: -6885956104780273253}
+  - component: {fileID: -8347443344557618647}
   m_Layer: 9
   m_Name: Resource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1034561613158637324
 Transform:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ec9a8a86638f54b8851bfd565f1338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!208 &-6885956104780273253
+--- !u!208 &-8347443344557618647
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
