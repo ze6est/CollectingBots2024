@@ -8,7 +8,7 @@ namespace CollectingBots2024.CodeBase.Base
     {
         [SerializeField] private LayerMask _collisionLayers;
         [Range(0, 31)]
-        [SerializeField] private int _resourcesFoundNumber;
+        [SerializeField] private int _resourcesFoundLayer;
         [SerializeField] private float _scanRadius;
         [SerializeField] private float _scanInterval;
         [SerializeField] private int _resourcesFoundPerScan;
@@ -38,7 +38,7 @@ namespace CollectingBots2024.CodeBase.Base
                     for (int i = 0; i < count; i++)
                     {
                         ResourceFound?.Invoke(resources[i]);
-                        resources[i].gameObject.layer = _resourcesFoundNumber;
+                        resources[i].gameObject.layer = _resourcesFoundLayer;
                     }
                 }
                 

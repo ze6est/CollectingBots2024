@@ -1,4 +1,5 @@
 using System.Collections;
+using CollectingBots2024.CodeBase.Spawners;
 using UnityEngine;
 
 namespace CollectingBots2024.CodeBase.Base

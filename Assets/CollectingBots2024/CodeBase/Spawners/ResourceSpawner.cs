@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace CollectingBots2024.CodeBase
+namespace CollectingBots2024.CodeBase.Spawners
 {
     public class ResourceSpawner : Spawner<Resource>
     {

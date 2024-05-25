@@ -1,27 +1,28 @@
 using System.Collections;
+using CollectingBots2024.CodeBase.Spawners;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace CollectingBots2024.CodeBase.Base
 {
     public class Dispatcher : MonoBehaviour
     {
+        [SerializeField] private ResourceSpawner _resourceSpawner;
         [SerializeField] private Core _core;
+        [Range(0, 31)]
+        [SerializeField] private int _resourcesSpawnedLayer;
+        [SerializeField] private float _minOffsetToTarget = 0.15f;
+        [SerializeField] private float _searchDelay = 1f;
 
-        private NavMeshAgent _freeUnit;
+        private Unit _freeUnit;
         private Resource _resource;
 
         private Coroutine _sendUnitJob;
 
-        private void OnEnable()
-        {
+        private void OnEnable() => 
             _sendUnitJob = StartCoroutine(SendUnit());
-        }
 
-        private void OnDisable()
-        {
+        private void OnDisable() => 
             StopCoroutine(_sendUnitJob);
-        }
 
         private IEnumerator SendUnit()
         {
@@ -30,40 +31,42 @@ namespace CollectingBots2024.CodeBase.Base
                 yield return FindFreeUnit();
                 yield return FindResource();
 
-                _freeUnit.stoppingDistance = _freeUnit.GetComponent<CapsuleCollider>().radius;
-
-                Vector3 vector = _resource.transform.position - _freeUnit.transform.position;
-                float distance = vector.magnitude;
-                Vector3 direction = vector / distance;
-
-                Vector3 destination = _resource.transform.position -
-                                      direction * _resource.GetComponent<SphereCollider>().radius;
-                
-                _freeUnit.SetDestination(destination);
-                Debug.Log("Destination");
+                _freeUnit.ResourceCollected += OnResourceCollected;
+                _freeUnit.SetDestination(_resource.gameObject, _resource.Radius + _freeUnit.Radius + _minOffsetToTarget);
             }
+        }
+
+        private void OnResourceCollected(Unit unit, Resource resource)
+        {
+            unit.ResourceDelivered += OnResourceDelivered;
+            unit.SetDestination(gameObject, _core.Radius + resource.Radius * 2 + unit.Radius + _minOffsetToTarget);
+            
+            unit.ResourceCollected -= OnResourceCollected;
+        }
+
+        private void OnResourceDelivered(Unit unit, Resource resource)
+        {
+            resource.transform.parent = _resourceSpawner.transform;
+            _resourceSpawner.Release(resource);
+            resource.gameObject.layer = _resourcesSpawnedLayer;
+            
+            unit.ResourceDelivered -= OnResourceDelivered;
         }
 
         private IEnumerator FindFreeUnit()
         {
-            WaitForSeconds wait = new WaitForSeconds(1);
+            WaitForSeconds wait = new WaitForSeconds(_searchDelay);
             
             while (_core.TryGetFreeUnit(out _freeUnit) == false)
-            {
                 yield return wait;
-            }
-            
-            Debug.Log("Find");
         }
 
         private IEnumerator FindResource()
         {
-            WaitForSeconds wait = new WaitForSeconds(1);
+            WaitForSeconds wait = new WaitForSeconds(_searchDelay);
             
             while (_core.TryGetResource(out _resource) == false)
-            {
                 yield return wait;
-            }
         }
     }
 }

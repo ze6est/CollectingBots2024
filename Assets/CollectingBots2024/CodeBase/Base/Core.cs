@@ -1,17 +1,24 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace CollectingBots2024.CodeBase.Base
 {
+    [RequireComponent(typeof(CapsuleCollider))]
     public class Core : MonoBehaviour
     {
         [SerializeField] private ResourcesScaner _scaner;
         [SerializeField] private UnitSpawner _unitSpawner;
         
-        [SerializeField] private List<Resource> _resources = new();
-        [SerializeField] private Queue<NavMeshAgent> _unitsFree = new();
-        [SerializeField] private List<NavMeshAgent> _unitsOccupied = new();
+        private List<Resource> _resources = new();
+        private Queue<Unit> _unitsFree = new();
+
+        public event Action ResourceDelivered;
+        
+        public float Radius { get; private set; }
+
+        private void Awake() => 
+            Radius = GetComponent<CapsuleCollider>().radius;
 
         private void OnEnable()
         {
@@ -31,20 +38,15 @@ namespace CollectingBots2024.CodeBase.Base
                 _resources.Add(resource);
         }
 
-        private void OnSpawned(Unit unit)
-        {
-            if(unit.TryGetComponent(out NavMeshAgent agent))
-            {
-                _unitsFree.Enqueue(agent);
-            }
-        }
+        private void OnSpawned(Unit unit) => 
+            _unitsFree.Enqueue(unit);
 
-        public bool TryGetFreeUnit(out NavMeshAgent unit)
+        public bool TryGetFreeUnit(out Unit unit)
         {
             if (_unitsFree.Count > 0)
             {
                 unit = _unitsFree.Dequeue();
-                _unitsOccupied.Add(unit);
+                unit.ResourceDelivered += OnResourceDelivered;
 
                 return true;
             }
@@ -52,6 +54,13 @@ namespace CollectingBots2024.CodeBase.Base
             unit = null;
             
             return false;
+        }
+
+        private void OnResourceDelivered(Unit unit, Resource _)
+        {
+            ResourceDelivered?.Invoke();
+            unit.ResourceDelivered -= OnResourceDelivered;
+            _unitsFree.Enqueue(unit);
         }
 
         public bool TryGetResource(out Resource resource)

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace CollectingBots2024.CodeBase
+namespace CollectingBots2024.CodeBase.Spawners
 {
     public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
     {
@@ -36,7 +36,10 @@ namespace CollectingBots2024.CodeBase
             _objectWidth = _calculator.GetWidth(_prefab.gameObject);
             _objectPivotPositionY = _calculator.GetSpawnHight(_prefab.gameObject);
         }
-        
+
+        public void Release(T @object) => 
+            _objectsPool.Release(@object);
+
         protected IEnumerator SpawnObject()
         {
             float radius = _objectWidth / 2 + _spawnWidthOffset;
