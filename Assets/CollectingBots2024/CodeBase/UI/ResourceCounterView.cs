@@ -10,12 +10,12 @@ namespace CollectingBots2024.CodeBase.UI
         [SerializeField] private TextMeshProUGUI _counter;
 
         private void OnEnable() => 
-            _resourcesCounter.ResourceDelivered += OnResourceDelivered;
+            _resourcesCounter.CountChanged += OnCountChanged;
 
         private void OnDisable() => 
-            _resourcesCounter.ResourceDelivered -= OnResourceDelivered;
+            _resourcesCounter.CountChanged -= OnCountChanged;
 
-        private void OnResourceDelivered(int count) => 
+        private void OnCountChanged(int count) => 
             _counter.text = count.ToString();
     }
 }

@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace CollectingBots2024.CodeBase
 {
-
     public class ObjectsPool<T> where T : MonoBehaviour
     {
         private T _prefab;
@@ -32,8 +29,14 @@ namespace CollectingBots2024.CodeBase
             if (_isAutoExpand == true)
                 return CreateObject();
 
-            throw new Exception($"No free objects in pool of type {typeof(T)}");
+            return null;
         }
+
+        public void Add(T obj) => 
+            _pool.Add(obj);
+
+        public void Remove(T obj) => 
+            _pool.Remove(obj);
 
         public void Release(T obj)
         {
@@ -51,7 +54,7 @@ namespace CollectingBots2024.CodeBase
 
         private T CreateObject(bool isActive = false)
         {
-            var createdObject = Object.Instantiate(_prefab, _container);
+            T createdObject = Object.Instantiate(_prefab, _container);
             createdObject.gameObject.SetActive(isActive);
             _pool.Add(createdObject);
             return createdObject;

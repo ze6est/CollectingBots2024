@@ -8,11 +8,13 @@ namespace CollectingBots2024.CodeBase.Spawners
         [Header("Spawner settings:")]
         [SerializeField] private float _spawnInterval;
 
-        private void Awake() => 
-            Construct(AssetsPath.ResourcePrefabPath);
-
-        private void OnEnable() => 
-            StartCoroutine(SpawnResources());
+        public override void Construct(Resource prefab, GroundChecker groundChecker, bool isStartSpawn)
+        {
+            base.Construct(prefab, groundChecker);
+            
+            if(isStartSpawn)
+                StartCoroutine(SpawnResources());
+        }
 
         private IEnumerator SpawnResources()
         {
